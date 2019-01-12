@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Trivia Game</title>
+  <link rel="stylesheet" href="assets/css/style.css"/>
+</head>
+
+<body>
+  <div>
+<ul>
+
+</ul>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script type="text/javascript" src="assets/javascript/app.js">
+
+var queryURL = "https://opentdb.com/api.php?amount=10";
+
+$.ajax('https://opentdb.com/api.php?amount=10').then(function(arr) {
+alert();
+    //   //i added this below:
+    //       var trow = $('<tr></tr>');
+    //       $('<td>').text(response.correct_answer).appendTo(trow);
+    //       $('<td>').text(response.Year).appendTo(trow);
+    //       $('<td>').text(response.Actors).appendTo(trow);
+    //       $('tbody').append(trow);
+
+
+      // Create and save a reference to new empty table row         MEANS CREATE A VARIABLE
+      // Create and save references to 3 td elements containing the Title, Year, and Actors from the AJAX response object
+      // Append the td elements to the new table row
+      // Append the table row to the tbody element
+    });
+
+
+    // var renderRow = function(response) {
+    //   // Create and save a reference to new empty table row
+    //   var tRow = $('<tr>');
+    //   // Create and save references to 3 td elements containing the Title, Year, and Actors from the AJAX response object
+    //   var tdTitle = $('<td>').text(response.Title) // <td>Jumanji</td>
+    //   var tdYear = $('<td>').text(response.Year) // <td>Jumanji</td>
+    //   var tdActors = $('<td>').text(response.Actors) // <td>Jumanji</td>
+    //   // Append the td elements to the new table row
+    //   tRow.append(tdTitle, tdYear, tdActors); // <tr><td>...</td><td>...</td><td>...</td></tr>
+    //   // Append the table row to the tbody element
+    //   $('#movies').append(tRow);
+    // }
+
+    // var getMovieTitleUrl = function(title) {
+    //   return "https://www.omdbapi.com/?t=" + title + "&y=&plot=short&apikey=trilogy";
+    // }
+    // // The below code fills in the first row of the table
+    // $.ajax(getMovieTitleUrl("Mr. Nobody")).then(renderRow);
+    // $.ajax(getMovieTitleUrl("The Matrix")).then(renderRow);
+    // $.ajax(getMovieTitleUrl("Jumanji")).then(renderRow);
+
+  </script>
+</body>
+
+</html>

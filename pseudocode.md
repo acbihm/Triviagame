@@ -44,6 +44,12 @@
         -and randomize answers and put them on DOM
         -is called from prepForQuestion only
 
+        ***IMPORTANT:
+        -to randomize the questions, pick a random function to run, which displays different    combinations of correct/incorrect strings (so the correct answer isn't always 'A',    etc)
+        -IF div contains ' or ", pull another.
+            -pullTrivia needs to be able to handle this. maybe a func inside it that actually changes the DOM
+            -to get the next question, I would probably do question index+1 until I find one with no ' or "
+
     -correctChoice()
         -STOPS the gameTimer
         -shows the results div
@@ -60,7 +66,7 @@
             -if no passes, disable this button
         -onclick runs prepForTrivia()
 
-    -wrongChoice()
+    -incorrectChoice()
         -STOPS the gameTimer
         -shows the results div
         -if the wrong choice clicked, increment var wrongA (number of wrong answers)
@@ -84,7 +90,7 @@
         -contains the button and instructions
         -never gets rewritten, only hidden
 
-    -game
+    -game-area
         -contains the question and the answers and countdown
         -gets reset and rewritten every execution of pullTrivia()
         -contains the small HUD of corrects/wrongs/passes
@@ -105,4 +111,7 @@
     -allow myself to make it responsive in future
     -use an API to get trivia questions
     -set up all 3 timers first, the game session timer, then the others inside functions
+    -IMPORTANT***when I pull questions, they sometimes have things that do not render in HTML, like quotes, symbols, etc. I should prob exlude anything that has those.
+
+    I can find the questions that contain the ' or " symbols. I might be able to replace them.
 
