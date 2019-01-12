@@ -22,35 +22,78 @@
         </div>
     </div>
 
-<!-- ALL FOUR OF THESE BELOW WILL BE EMPTIED AND REWRITTEN WITH JQ, JUST KEEPING IT HERE FOR NOW -->
 
-    <!-- <div class="container-fluid" id="start-page"></div> -->
-    <div class="container-fluid" id="game-page">
 
-            <button id="gameCountdown">Start</button>
-            <div class="row">
-                <div class="col-2"></div>
-                <div class="col-8"><h1 id="question-elem" class="text-center"></h1></div>
-                <div class="col-2"></div>
-                <br><br>
+    <!-- ====================================================================== -->
 
-            <div class="row">
-                <div class="col" id="cor-Q-elem">Correct</div>
-                <div class="col" id="incor-Q-elem1">Incorrect</div>
-                <div class="w-100"></div>
-                <div class="col" id="incor-Q-elem2">Incorrect</div>
-                <div class="col" id="incor-Q-elem3">Incorrect</div>
-    
-                <!-- rewrite this in  jquery so that I can mix up the cor and incor -->
-            </div>
+
+    <div class="container-fluid layout-style" id="status-page">
+
+
+
     </div>
 
-    <!-- <div class="container-fluid" id="status-page"></div> -->
-    <!-- <div class="container-fluid" id="results-page"></div> -->
+    <button class="pos" id="gameCountdown">Start</button>
+    <!-- this button will not stay here -->
 
-    <!-- ===================TRIVIA==================== -->
+    <div class="container-fluid layout-style hidden" id="start-page">
+        <h2 class="dif-select">Select your difficulty level</h2>
+        <div id="dif-easy">
+            <h2>Easy</h2>
+        </div>
+        <div id="dif-medium">
+            <h2>Medium</h2>
+        </div>
+        <div id="dif-hard">
+            <h2>Hard</h2>
+        </div>
+    </div>
 
 
+
+
+    <div class="container-fluid layout-style hidden" id="game-page">
+
+        <div class="row">
+            <div class="col-2"></div>
+
+            <div class="col-8">
+                <h1 id="question-elem" class="text-center"></h1>
+            </div>
+            <div class="col-2"></div>
+            <br><br>
+
+            <div class="row choices">
+                <div class="col-6" id="cor-Q-elem">Correct</div>
+                <div class="col-6" id="incor-Q-elem1">Incorrect</div>
+                <div class="w-100"></div>
+                <div class="col-6" id="incor-Q-elem2">Incorrect</div>
+                <div class="col-6" id="incor-Q-elem3">Incorrect</div>
+                <!-- rewrite this in  jquery so that I can mix up the cor and incor -->
+            </div>
+        </div>
+
+        <!-- ============================================================================================== -->
+
+
+
+
+        <!-- <div class="container-fluid layout-style hidden" id="results-page"></div> -->
+
+        <!-- ===================TRIVIA==================== -->
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
 
 
 
@@ -62,24 +105,17 @@
 
     <!-- ===================BOTTOM==================== -->
 
-    <div class="row fixed-bottom bottom-bar">
-        <div class="col-sm correctNumElem">
-            Correct:
-        </div>
-        <div class="col-sm incorrectNumElem">
-            Incorrect:
-        </div>
-        <div class="col-sm passNumElem">
-            Passes left:
-        </div>
+    <div class="row fixed-bottom bottom-bar hidden">
+        <div class="hidden col-sm correctNumElem"> </div>
+        <div class="hidden col-sm incorrectNumElem"></div>
+        <div class="hidden col-sm passNumElem"></div>
     </div>
 
-
-
-
-
-
-
+    <div class="row fixed-bottom prep-bar">
+        <div class="col-sm"> </div>
+        <div class="col-sm" id="prep-time"></div>
+        <div class="col-sm"></div>
+    </div>
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>
@@ -91,28 +127,79 @@
     <script type="text/javascript">
 
         //Below: creating vars for vars, functions, and timers
-        var gameRun, gameTimer, resetGame, prepforTrivia, pullTrivia, correctChoice, incorrectChoice, passQuestion, gameOver
+        var gameRun, gameTimer, statusBar, resetGame, prepforTrivia, pullTrivia, correctChoice, incorrectChoice, passQuestion, gameOver
         var correctNum = 0;
         var incorrectNum = 0;
-        var passnum = 3;
+        var passNum = 3;
+        var nextQ = 0;
+
+
+
+
+        prepforTrivia = function () {
+            //shows status bar
+            //shows top bar
+
+            //this is in between turns, when player is preparing
+            //style it later
+            $("#gameCountdown").bind("click", function () {
+                function prepTime(duration, display) {
+                    var timer = duration, minutes, seconds;
+                    prepForTrivia = setInterval(function () {
+                        minutes = parseInt(timer / 60, 10)
+                        seconds = parseInt(timer % 60, 10);
+                        minutes = minutes < 10 ? "0" + minutes : minutes;
+                        seconds = seconds < 10 ? "0" + seconds : seconds;
+                        display.html("Time before next question:<br>  " + minutes + ":" + seconds);
+                        if (--timer < -1) { //so it actually shows 00:00 and not :01
+                            display.text("Timer: 00:00");
+                            //hideScenes();
+                            // pullQuestion();
+                            alert("Time's up!");
+                            clearInterval(prepForTrivia);
+                            // timer = duration;   //make this be at 7 again on load
+                        }
+                    }, 1000);
+                }
+
+                jQuery(function () {
+                    var sevenSec = 7,
+                        display = $('#prep-time');
+                    prepTime(sevenSec, display);
+                });
+            });
+
+        }
+        prepforTrivia();
+
+
+
+
+
+
+
+
+
+
+        // ==================================================================================
+        //maybe clean but this func if there's time
+        // append all as one thing
         var getQ = function (data) {
             // var tRow = $("<tr>");
-            var questionVAR = $("#question-elem").text(data.results[0].question);
+
+            var questionVAR = $("#question-elem").text(data.results[nextQ].question);
             // var corQ = $("#cor-Q-elem").text(data.results[0].correct_answer);
-            var corQ = $("#cor-Q-elem").html('<button type="button" class="btn btn-secondary choice-button correct">' + data.results[0].correct_answer + '</button>');
-            var incorQ1 = $("#incor-Q-elem1").html('<button type="button" class="btn btn-primary choice-button wrong">' + data.results[0].incorrect_answers[0] + '</button>');
-            var incorQ2 = $("#incor-Q-elem2").html('<button type="button" class="btn btn-primary choice-button wrong">' + data.results[0].incorrect_answers[1] + '</button>');
-            var incorQ3 = $("#incor-Q-elem3").html('<button type="button" class="btn btn-primary choice-button wrong">' + data.results[0].incorrect_answers[2] + '</button>');
+            var corQ = $("#cor-Q-elem").html('<button type="button" class="btn btn-secondary choice-button correct">' + data.results[nextQ].correct_answer + '</button>');
+            var incorQ1 = $("#incor-Q-elem1").html('<button type="button" class="btn btn-primary choice-button wrong">' + data.results[nextQ].incorrect_answers[0] + '</button>');
+            var incorQ2 = $("#incor-Q-elem2").html('<button type="button" class="btn btn-primary choice-button wrong">' + data.results[nextQ].incorrect_answers[1] + '</button>');
+            var incorQ3 = $("#incor-Q-elem3").html('<button type="button" class="btn btn-primary choice-button wrong">' + data.results[nextQ].incorrect_answers[2] + '</button>');
+            nextQ = nextQ + 1;
 
             // var incorQ3 = $("#incor-Q-elem3").text(data.results[0].incorrect_answers[2]);
             // alert(data.results[0].incorrect_answers[0]);
-
-
-            // tRow.append(question, corQ, incorQ);
-
         };
 
-        
+
         var pullQuestion = function (q) {
             var queryURL = "https://opentdb.com/api.php?amount=50&category=11&difficulty=easy&type=multiple";
             $.ajax(queryURL).then(function (response) {
@@ -120,38 +207,23 @@
             });
         };
 
+        statusBar = function () {
+            $('.correctNumElem').html('<h2> Correct: <br>' + correctNum);
+            $('.incorrectNumElem').html('<h2> Incorrect: <br>' + incorrectNum);
+            $('.passNumElem').html('<h2> Passes remaining: <br>' + passNum);
+            
+
+        }
+
+
         pullQuestion();
+        statusBar();
 
 
 
-        //this is in between turns, when player is preparing
-        //style it later
-        $("#gameCountdown").bind("click", function () {
-            function prepTime(duration, display) {
-                var timer = duration, minutes, seconds;
-                prepForTrivia = setInterval(function () {
-                    minutes = parseInt(timer / 60, 10)
-                    seconds = parseInt(timer % 60, 10);
-                    minutes = minutes < 10 ? "0" + minutes : minutes;
-                    seconds = seconds < 10 ? "0" + seconds : seconds;
-                    display.text("Time remaining: " + minutes + ":" + seconds);
-                    if (--timer < -1) { //so it actually shows 00:00 and not :01
-                        display.text("Timer: 00:00");
-                        //hideScenes();
-                        // pullQuestion();
-                        alert("Time's up!");
-                        clearInterval(prepForTrivia);
-                        // timer = duration;   //make this be at 7 again on load
-                    }
-                }, 1000);
-            }
 
-            jQuery(function () {
-                var sevenSec = 7,
-                    display = $('#time');
-                prepTime(sevenSec, display);
-            });
-        });
+
+
 // =============================this will be the prep timer
 // $("#prepCountdown").bind("click", function () {
 //             function prepTime(duration, display) {

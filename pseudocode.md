@@ -111,6 +111,7 @@
     -allow myself to make it responsive in future
     -use an API to get trivia questions
     -set up all 3 timers first, the game session timer, then the others inside functions
+    
     -IMPORTANT***when I pull questions, they sometimes have things that do not render in HTML, like quotes, symbols, etc. I should prob exlude anything that has those.
 
     I can find the questions that contain the ' or " symbols. I might be able to replace them.

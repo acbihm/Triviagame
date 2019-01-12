@@ -3,8 +3,11 @@
     /* width: 100%; */
     background-color: green;
     color: white;
+    border-bottom: 5px solid black;
     
 }
+
+
 
 #question-elem {
     /* margin: 0 auto; */
@@ -15,19 +18,13 @@
 .time-style {
     background-color: lightgray;
     height: 120px;
+    border: 5px solid black;
 }
 
-.carousel-item>h2 {
-    color: blue;
-    position: fixed;
-    top: 300px;
-    text-align: center;
-    margin: 0 auto;
-    left: 300px;
-}
 
 /* TRIVIA   ====================================== */
-#game-page, #results-page, #start-page, #status-page {
+
+.layout-style {
     position: fixed;
     top: 120px;
     padding: 25px;
@@ -38,6 +35,7 @@
 
 .choices {
     margin: 0 auto;
+    width: 80%;
 }
 .choice-button {
     margin: 20px;
@@ -59,9 +57,85 @@
 }
 
 .bottom-bar {
-    height: 100px;
+    height: 85px;
     color: white;
     text-align: center;
     font-size: 2.2em;
+}
 
+.prep-bar {
+    height: 175px;
+    color: white;
+    text-align: center;
+    font-size: 2.2em;
+    background-color: red;
+
+}
+
+.hidden {
+    display:none;
+}
+
+#dif-easy {
+    
+        height: 425px;
+        width: 290px;
+        background-color: #555;
+        display: inline-block;
+        padding-top: 300px;
+        margin: 40px 80px;
+        text-align: center;
+        color: white;
+        border-radius: 7px;
+        /* background-image: url('../images/easy.jpg'); */
+        background-size: contain;
+}
+
+#dif-medium {
+    
+    height: 425px;
+    width: 290px;
+    background-color: #555;
+    display: inline-block;
+    padding-top: 300px;
+    margin: 40px 80px;
+    text-align: center;
+    color: white;
+    border-radius: 7px;
+    /* background-image: url('../images/medium.jpg'); */
+    background-size: contain;
+}
+
+#dif-hard {
+    
+    height: 425px;
+    width: 290px;
+    background-color: #555;
+    display: inline-block;
+    padding-top: 300px;
+    margin: 40px 80px;
+    text-align: center;
+    color: white;
+    border-radius: 7px;
+    /* background-image: url('../images/hard.jpg'); */
+    background-size: contain;
+}
+
+.dif-select {
+    color: white;
+    text-align: center;
+}
+
+.blue {
+    background-color: blue;
+}
+
+.pos { 
+    position: absolute;
+    top: 300px;
+}
+
+.time-pos { 
+    position: absolute;
+    top: 300px;
 }
