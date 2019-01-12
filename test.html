@@ -36,7 +36,7 @@
     <button class="pos" id="gameCountdown">Start</button>
     <!-- this button will not stay here -->
 
-    <div class="container-fluid layout-style hidden" id="start-page">
+    <div class="container-fluid layout-style" id="start-page">
         <h2 class="dif-select">Select your difficulty level</h2>
         <div id="dif-easy">
             <h2>Easy</h2>
@@ -105,17 +105,17 @@
 
     <!-- ===================BOTTOM==================== -->
 
-    <div class="row fixed-bottom bottom-bar hidden">
-        <div class="hidden col-sm correctNumElem"> </div>
-        <div class="hidden col-sm incorrectNumElem"></div>
-        <div class="hidden col-sm passNumElem"></div>
+    <div class="row fixed-bottom" id="bottom-bar">
+        <div class="col-sm correctNumElem"> </div>
+        <div class="col-sm incorrectNumElem"></div>
+        <div class="col-sm passNumElem"></div>
     </div>
 
-    <div class="row fixed-bottom prep-bar">
+    <!-- <div class="row fixed-bottom hidden" id="prep-bar">
         <div class="col-sm"> </div>
         <div class="col-sm" id="prep-time"></div>
         <div class="col-sm"></div>
-    </div>
+    </div> -->
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>
@@ -143,6 +143,7 @@
             //this is in between turns, when player is preparing
             //style it later
             $("#gameCountdown").bind("click", function () {
+                //make it execute on click of dofficulty seletion instead
                 function prepTime(duration, display) {
                     var timer = duration, minutes, seconds;
                     prepForTrivia = setInterval(function () {
@@ -153,9 +154,9 @@
                         display.html("Time before next question:<br>  " + minutes + ":" + seconds);
                         if (--timer < -1) { //so it actually shows 00:00 and not :01
                             display.text("Timer: 00:00");
-                            //hideScenes();
-                            // pullQuestion();
-                            alert("Time's up!");
+                            hideScenes();
+                            pullQuestionEasy();
+                            // alert("Time's up!");
                             clearInterval(prepForTrivia);
                             // timer = duration;   //make this be at 7 again on load
                         }
@@ -170,13 +171,6 @@
             });
 
         }
-        prepforTrivia();
-
-
-
-
-
-
 
 
 
@@ -200,8 +194,23 @@
         };
 
 
-        var pullQuestion = function (q) {
+        var pullQuestionEasy = function (q) {
+            $("#game-page").removeClass('hidden');
             var queryURL = "https://opentdb.com/api.php?amount=50&category=11&difficulty=easy&type=multiple";
+            $.ajax(queryURL).then(function (response) {
+                getQ(response);
+            });
+        };
+
+        var pullQuestionMedium = function (q) {
+            var queryURL = "https://opentdb.com/api.php?amount=50&category=11&difficulty=medium&type=multiple";
+            $.ajax(queryURL).then(function (response) {
+                getQ(response);
+            });
+        };
+
+        var pullQuestionHard = function (q) {
+            var queryURL = "https://opentdb.com/api.php?amount=50&category=11&difficulty=hard&type=multiple";
             $.ajax(queryURL).then(function (response) {
                 getQ(response);
             });
@@ -211,13 +220,50 @@
             $('.correctNumElem').html('<h2> Correct: <br>' + correctNum);
             $('.incorrectNumElem').html('<h2> Incorrect: <br>' + incorrectNum);
             $('.passNumElem').html('<h2> Passes remaining: <br>' + passNum);
-            
+        }
+
+
+        hideScenes = function () {
+                $("#start-page").addClass('hidden');
+                $("#status-page").addClass('hidden');
+                $("#game-page").addClass('hidden');
+                $("#results-page").addClass('hidden');
+                $("#prep-bar").addClass('hidden');
+                $("#bottom-bar").addClass('hidden');
+            }
+
+        gameRun = function () {
+            $("#start-page").removeClass('hidden');
+
+            $("#dif-easy").on("click", function () {
+                hideScenes();
+                $("#status-page").removeClass('hidden');
+                prepforTrivia();
+                // pullQuestionEasy();
+            });
+
+            $("#dif-medium").on("click", function () {
+                hideScenes();
+                $("#status-page").removeClass('hidden');
+                prepforTrivia();
+                // pullQuestionMedium();
+            });
+
+            $("#dif-hard").on("click", function () {
+                hideScenes();
+                $("#status-page").removeClass('hidden');
+                prepforTrivia();
+                // pullQuestionHard();
+            });
 
         }
 
 
-        pullQuestion();
-        statusBar();
+
+        gameRun();
+
+        // pullQuestionEasy();
+        // statusBar();
 
 
 
