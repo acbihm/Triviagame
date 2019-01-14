@@ -3,7 +3,11 @@
 
 body {
     background-color: lightgoldenrodyellow;
+    font-family: 'Timmana', sans-serif;
+    background-image: url(../images/bg.png);
+    background-size: 20%;
 }
+
 .row-style {
     /* background-color: lightgray; */
     height: 120px;
@@ -12,8 +16,10 @@ body {
 
 .top-bar {
     border: 2px solid black;
-    box-shadow: 2px 6px 18px #888888;
-    background-color: green;
+    box-shadow: 2px 6px 18px black;
+    background-color: #404142;
+    background-image: url(../images/assault.png);
+
 
 }
 
@@ -38,7 +44,7 @@ body {
 }
 
 .R5 {
-    height: 90px;
+    height: 75px;
 }
 
 /* ==========  Below are specific selectors    ========== */
@@ -51,6 +57,7 @@ body {
     color: white;
     font-size: 3.3em;
     padding: 11px 0  11px 20px;
+    
 }
 
 #headerElem>h2 {
@@ -62,22 +69,30 @@ body {
 #timerElem {
     border-radius: 15px;
     background-color: white;
-    box-shadow: inset 2px 2px 14px #888888;
+    box-shadow: inset 2px 2px 14px black;
     margin: 18px 0;
     left: -20px;
 }
 #timerElem>p {
     color: red;
-    font-size: 3.6em;
+    font-size: 3.9em;
     font-weight: bolder;
+    padding: 20px 0 0 35px;
 }
 
 #displayElem {
     background-color: white;
-    border-bottom-left-radius: 15px;
-    border-bottom-right-radius: 15px;
+    /* border-bottom-left-radius: 15px; */
+    border-radius: 15px;
+    box-shadow: inset 2px 2px 14px black;
+    background-color: white;
+    margin-top: 30px;
+}
 
-    box-shadow: inset 2px 2px 14px #888888;
+#displayElem>h2 {
+    color: red;
+    text-align: center;
+    padding: 80px 10px 95px 10px;
 }
 
 #hintQ {
@@ -85,11 +100,11 @@ body {
     padding: 15px;
     margin: 20px 0;
     border-radius: 15px;
-    box-shadow: -2px 3px 13px #888888;
+    box-shadow: -2px 3px 13px black;
 }
 
 #hintQ>h3 {
-    padding: 0px 0px 0px 13px;
+    padding: 3px 0px 0px 13px;
 }
 
 #passQ{
@@ -97,21 +112,21 @@ body {
     padding: 15px;
     margin: 20px 0;
     border-radius: 15px;
-    box-shadow: -2px 3px 13px #888888;
+    box-shadow: -2px 3px 13px black;
 }
 
 #passQ>h3 {
-    padding: 0px 0px 0px 13px;
+    padding: 3px 0px 0px 13px;
 }
 
 #correctElem {
-    background-color: green;
+    background-color: #4f6f8e;
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
 }
 
 #wrongElem {
-    background-color: red;
+    background-color: #4f6f8e;
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
 }
@@ -129,24 +144,29 @@ body {
 }
 
 .status-tab {
-    box-shadow: -2px 3px 13px #888888;
+    box-shadow: -2px 3px 13px black;
 
 }
 .status-tab>h2 {
-    padding: 25px 45px 0px 60px;
-    font-size: 2.4em;
+    padding: 28px 60px 0px 88px;
+    font-size: 2em;
 }
 #optionA {
-    background-color: blue;
+    background-color: #4f6f8e;
 }
 .choice {
-    background-color: gray;
+    background-color: #3d3e3f;
     border-radius: 10px;
-    box-shadow: 2px 3px 13px #888888;
+    /* margin-top: -10px; */
+    box-shadow: 2px 3px 13px black;
 }
 
-
-/* ================================ */
+.choice > h3{
+    color: white;
+    text-align: center;
+    font-size: 1.6em;
+    padding: 30px 0 0 0;
+}
 
 
 

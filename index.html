@@ -7,6 +7,7 @@
   <!-- <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.css"> -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.min.css" />
   <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+  <link href="https://fonts.googleapis.com/css?family=Timmana" rel="stylesheet">
 </head>
 
 <body>
@@ -22,15 +23,15 @@
 
   <div class="row R2 row-style game-area">
     <div class="col-style col-2"></div>
-    <div class="col-style col-8" id="displayElem"></div>
+    <div class="col-style col-8" id="displayElem"><h2>Which of the following is not a "Bond Girl"?</h2></div>
     <div class="col-style col-2"></div>
   </div>
 
   <div class="row R3 row-style game-area">
     <div class="col-style col-2"></div>
-    <div class="col-style col-3 choice" id="optionA"></div>
+    <div class="col-style col-3 choice" id="optionA"><h3>Words words Words Words</h3></div>
     <div class="col-style col-2"></div>
-    <div class="col-style col-3 choice" id="optionB"></div>
+    <div class="col-style col-3 choice" id="optionB"><h3>Words words Words Words</h3></div>
     <div class="col-style col-1"></div>
     <div class="col-style col-1" id="hintQ">
       <h3>HINT</h3>
@@ -39,9 +40,9 @@
 
   <div class="row R4 row-style game-area">
     <div class="col-style col-2"></div>
-    <div class="col-style col-3 choice" id="optionC"></div>
+    <div class="col-style col-3 choice" id="optionC"><h3>Words words Words Words</h3></div>
     <div class="col-style col-2"></div>
-    <div class="col-style col-3 choice" id="optionD"></div>
+    <div class="col-style col-3 choice" id="optionD"><h3>Words words Words Words</h3></div>
     <div class="col-style col-1"></div>
     <div class="col-style col-1" id="passQ">
       <h3>PASS</h3>
@@ -120,11 +121,11 @@
     var getQ = function (data) {
       nextQ = nextQ + 1;
       // alert(typeof(nextQ));
-      $("#displayElem").text(data.results[nextQ].question);
-      $("#optionA").text(data.results[nextQ].correct_answer);
-      $("#optionB").text(data.results[nextQ].incorrect_answers[0]);
-      $("#optionC").text(data.results[nextQ].incorrect_answers[1]);
-      $("#optionD").text(data.results[nextQ].incorrect_answers[2]);
+      $("#displayElem").html('<h2>' + data.results[nextQ].question + '</h2>');
+      $("#optionA").html('<h3>' + data.results[nextQ].correct_answer + '</h3>');
+      $("#optionB").html('<h3>' + data.results[nextQ].incorrect_answers[0] + '</h3>');
+      $("#optionC").html('<h3>' + data.results[nextQ].incorrect_answers[1] + '</h3>');
+      $("#optionD").html('<h3>' + data.results[nextQ].incorrect_answers[2] + '</h3>');
 
 
 
@@ -133,7 +134,7 @@
         //not working right now****
         load();
         //this gets a new question, but runs inside itself unfortunately.
-        alert("ok");
+        // alert("ok");
         pullQuestionEasy();
 
         return picked = true;
@@ -176,6 +177,7 @@
 
     prepTime();
     pullQuestionEasy();
+
     // getQ();
 
 
