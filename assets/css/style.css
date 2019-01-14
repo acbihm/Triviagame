@@ -1,11 +1,197 @@
-.top-bar {
-    height: 120px;
-    /* width: 100%; */
-    background-color: green;
-    color: white;
-    border-bottom: 5px solid black;
-    
+
+
+
+body {
+    background-color: lightgoldenrodyellow;
 }
+.row-style {
+    /* background-color: lightgray; */
+    height: 120px;
+
+}
+
+.top-bar {
+    border: 2px solid black;
+    box-shadow: 2px 6px 18px #888888;
+    background-color: green;
+
+}
+
+
+.R1 {
+    height: 140px;
+}
+.R2 {
+    height: 230px;
+}
+.R3 {
+    height: 135px;
+    padding: 20px 0;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+.R4 {
+    height: 135px;
+    padding: 20px 0;
+    margin-bottom: 15px;
+    margin-top: 15px;
+}
+
+.R5 {
+    height: 90px;
+}
+
+/* ==========  Below are specific selectors    ========== */
+
+/* #headerElem {
+    color: white;
+} */
+
+#headerElem>h1 {
+    color: white;
+    font-size: 3.3em;
+    padding: 11px 0  11px 20px;
+}
+
+#headerElem>h2 {
+    color: white;
+    font-size: 1.5em;
+    padding: 0px 5px 0px 50px;
+}
+
+#timerElem {
+    border-radius: 15px;
+    background-color: white;
+    box-shadow: inset 2px 2px 14px #888888;
+    margin: 18px 0;
+    left: -20px;
+}
+#timerElem>p {
+    color: red;
+    font-size: 3.6em;
+    font-weight: bolder;
+}
+
+#displayElem {
+    background-color: white;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+
+    box-shadow: inset 2px 2px 14px #888888;
+}
+
+#hintQ {
+    background-color:lightblue;
+    padding: 15px;
+    margin: 20px 0;
+    border-radius: 15px;
+    box-shadow: -2px 3px 13px #888888;
+}
+
+#hintQ>h3 {
+    padding: 0px 0px 0px 13px;
+}
+
+#passQ{
+    background-color:lightcyan;
+    padding: 15px;
+    margin: 20px 0;
+    border-radius: 15px;
+    box-shadow: -2px 3px 13px #888888;
+}
+
+#passQ>h3 {
+    padding: 0px 0px 0px 13px;
+}
+
+#correctElem {
+    background-color: green;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+
+#wrongElem {
+    background-color: red;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+
+#hintElem {
+    background-color:lightblue;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+
+#passElem {
+    background-color:lightcyan;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+
+.status-tab {
+    box-shadow: -2px 3px 13px #888888;
+
+}
+.status-tab>h2 {
+    padding: 25px 45px 0px 60px;
+    font-size: 2.4em;
+}
+#optionA {
+    background-color: blue;
+}
+.choice {
+    background-color: gray;
+    border-radius: 10px;
+    box-shadow: 2px 3px 13px #888888;
+}
+
+
+/* ================================ */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -15,14 +201,32 @@
     width: 850px;    
 }
 
-.time-style {
-    background-color: lightgray;
-    height: 120px;
-    border: 5px solid black;
-}
 
 
 /* TRIVIA   ====================================== */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 .layout-style {
     position: fixed;
@@ -44,17 +248,7 @@
 }
 
 /* BOTTOM   ====================================== */
-.correctNumElem {
-    background-color: green;
-}
 
-.incorrectNumElem {
-    background-color: red;
-}
-
-.passNumElem {
-    background-color:lightgray;
-}
 
 .bottom-bar {
     height: 85px;

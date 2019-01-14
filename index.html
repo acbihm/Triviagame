@@ -2,62 +2,322 @@
 <html lang="en">
 
 <head>
-  <meta charset="utf-8">
-  <title>Trivia Game</title>
-  <link rel="stylesheet" href="assets/css/style.css"/>
+    <meta charset="utf-8">
+    <title>Trivia Game</title>
+    <!-- <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.css"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
 </head>
 
 <body>
-  <div>
-<ul>
+    <div class="row R1 row-style top-bar">
+        <div class="col-style col-9" id="headerElem">
+            <h1>Trivia Game</h1>
+            <h2>Medium difficulty</h2>
+        </div>
+        <div class="col-style col-3" id="timerElem">
+            <p>Time: 01:00</p>
+        </div>
+    </div>
 
-</ul>
-  </div>
+    <div class="row R2 row-style game-area">
+        <div class="col-style col-2"></div>
+        <div class="col-style col-8" id="displayElem"></div>
+        <div class="col-style col-2"></div>
+    </div>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script type="text/javascript" src="assets/javascript/app.js">
+    <div class="row R3 row-style game-area">
+        <div class="col-style col-2"></div>
+        <div class="col-style col-3 choice" id="optionA"></div>
+        <div class="col-style col-2"></div>
+        <div class="col-style col-3 choice" id="optionB"></div>
+        <div class="col-style col-1"></div>
+        <div class="col-style col-1" id="hintQ">
+            <h3>HINT</h3>
+        </div>
+    </div>
 
-var queryURL = "https://opentdb.com/api.php?amount=10";
+    <div class="row R4 row-style game-area">
+        <div class="col-style col-2"></div>
+        <div class="col-style col-3 choice" id="optionC"></div>
+        <div class="col-style col-2"></div>
+        <div class="col-style col-3 choice" id="optionD"></div>
+        <div class="col-style col-1"></div>
+        <div class="col-style col-1" id="passQ">
+            <h3>PASS</h3>
+        </div>
+    </div>
 
-$.ajax('https://opentdb.com/api.php?amount=10').then(function(arr) {
-alert();
-    //   //i added this below:
-    //       var trow = $('<tr></tr>');
-    //       $('<td>').text(response.correct_answer).appendTo(trow);
-    //       $('<td>').text(response.Year).appendTo(trow);
-    //       $('<td>').text(response.Actors).appendTo(trow);
-    //       $('tbody').append(trow);
+    <div class="row R5 row-style fixed-bottom game-area">
+        <div class="col-style col-3 status-tab" id="correctElem">
+            <h2>Correct: 5</h2>
+        </div>
+        <div class="col-style col-3 status-tab" id="wrongElem">
+            <h2>Incorrect: 1</h2>
+        </div>
+        <div class="col-style col-3 status-tab" id="hintElem">
+            <h2>Hints left: 2</h2>
+        </div>
+        <div class="col-style col-3 status-tab" id="passElem">
+            <h2>Passes left: 3</h2>
+        </div>
+    </div>
 
 
-      // Create and save a reference to new empty table row         MEANS CREATE A VARIABLE
-      // Create and save references to 3 td elements containing the Title, Year, and Actors from the AJAX response object
-      // Append the td elements to the new table row
-      // Append the table row to the tbody element
-    });
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript">
+
+        //Below: creating vars for vars, functions, and timers
+        var gameRun, gameTimer, statusBar, resetGame, prepforTrivia, pullTrivia, correctChoice, incorrectChoice, passQuestion, gameOver
+        var correctNum = 0;
+        var wrongNum = 0;
+        var hintNum = 3;
+        var passNum = 3;
+        // var nextQ = 0;
+        var load;
 
 
-    // var renderRow = function(response) {
-    //   // Create and save a reference to new empty table row
-    //   var tRow = $('<tr>');
-    //   // Create and save references to 3 td elements containing the Title, Year, and Actors from the AJAX response object
-    //   var tdTitle = $('<td>').text(response.Title) // <td>Jumanji</td>
-    //   var tdYear = $('<td>').text(response.Year) // <td>Jumanji</td>
-    //   var tdActors = $('<td>').text(response.Actors) // <td>Jumanji</td>
-    //   // Append the td elements to the new table row
-    //   tRow.append(tdTitle, tdYear, tdActors); // <tr><td>...</td><td>...</td><td>...</td></tr>
-    //   // Append the table row to the tbody element
-    //   $('#movies').append(tRow);
-    // }
+        //I can target R2, R3, R4, and R5  with the 'game-area' class
+load = function () {
+    $('#correctElem').html('<h2>Correct: ' + correctNum + '</h2>');
+            $('#wrongElem').html('<h2>Wrong: ' + wrongNum + '</h2>');
+            $('#hintElem').html('<h2>Hints left: ' + hintNum + '</h2>');
+            $('#passElem').html('<h2>Passes left: ' + passNum + '</h2>');
+}
+load();
 
-    // var getMovieTitleUrl = function(title) {
-    //   return "https://www.omdbapi.com/?t=" + title + "&y=&plot=short&apikey=trilogy";
-    // }
-    // // The below code fills in the first row of the table
-    // $.ajax(getMovieTitleUrl("Mr. Nobody")).then(renderRow);
-    // $.ajax(getMovieTitleUrl("The Matrix")).then(renderRow);
-    // $.ajax(getMovieTitleUrl("Jumanji")).then(renderRow);
 
-  </script>
+        function prepTime(duration, display) {
+            var timer = duration, minutes, seconds;
+            prepForTrivia = setInterval(function () {
+                minutes = parseInt(timer / 60, 10)
+                seconds = parseInt(timer % 60, 10);
+                minutes = minutes < 10 ? "0" + minutes : minutes;
+                seconds = seconds < 10 ? "0" + seconds : seconds;
+                display.html('<p>Time: ' + minutes + ":" + seconds + '</p>');
+                if (--timer < -1) { //so it actually shows 00:00 and not :01
+                    display.text("Timer: 00:00");
+                    // hideScenes();
+                    // pullQuestionEasy();
+                    alert("Time's up!");
+                    clearInterval(prepForTrivia);
+                    // timer = duration;   //make this be at 7 again on load
+                }
+            }, 1000)
+        };
+
+        jQuery(function () {
+            var sevenSec = 60;
+            var display = $('#timerElem');
+            prepTime(sevenSec, display);
+        });
+
+        var getQ = function (data) {
+            var nextQ = 1;
+            var questionVAR = $("#displayElem").text(data.results[nextQ].question);
+            $("#optionA").text(data.results[nextQ].correct_answer);
+            $("#optionB").text(data.results[nextQ].incorrect_answers[0]);
+            $("#optionC").text(data.results[nextQ].incorrect_answers[1]);
+            $("#optionD").text(data.results[nextQ].incorrect_answers[2]);
+            nextQ++;
+
+
+            
+            $('#optionA').on('click', function() {
+                correctNum++;
+                //not working right now****
+                alert("ok");
+                load();
+                nextQ++;
+                getQ();
+            });
+
+            $('#optionB').on('click', function() {
+                wrongNum = wrongNum + 1;
+            });
+
+            $('#optionC').on('click', function() {
+                wrongNum = wrongNum + 1;
+            });
+
+            $('#optionD').on('click', function() {
+                wrongNum = wrongNum + 1;
+            });
+            
+
+        };
+
+        var pullQuestionEasy = function (q) {
+            // $("#game-page").removeClass('hidden');
+            var queryURL = "https://opentdb.com/api.php?amount=50&category=11&difficulty=easy&type=multiple";
+            $.ajax(queryURL).then(function (response) {
+                getQ(response);
+            });
+        };
+
+        prepTime();
+        pullQuestionEasy();
+        getQ();
+
+
+
+
+
+
+
+        prepforTrivia = function () {
+            //shows status bar
+            //shows top bar
+
+            //this is in between turns, when player is preparing
+            //style it later
+            $("#gameCountdown").bind("click", function () {
+                //make it execute on click of dofficulty seletion instead
+                function prepTime(duration, display) {
+                    var timer = duration, minutes, seconds;
+                    prepForTrivia = setInterval(function () {
+                        minutes = parseInt(timer / 60, 10)
+                        seconds = parseInt(timer % 60, 10);
+                        minutes = minutes < 10 ? "0" + minutes : minutes;
+                        seconds = seconds < 10 ? "0" + seconds : seconds;
+                        display.html("Time before next question:<br>  " + minutes + ":" + seconds);
+                        if (--timer < -1) { //so it actually shows 00:00 and not :01
+                            display.text("Timer: 00:00");
+                            // hideScenes();
+                            // pullQuestionEasy();
+                            alert("Time's up!");
+                            clearInterval(prepForTrivia);
+                            // timer = duration;   //make this be at 7 again on load
+                        }
+                    }, 1000);
+                }
+
+                jQuery(function () {
+                    var sevenSec = 7,
+                        display = $('#prep-time');
+                    prepTime(sevenSec, display);
+                });
+            });
+
+        }
+
+
+
+
+        // ==================================================================================
+        //maybe clean but this func if there's time
+        // append all as one thing
+
+
+        var pullQuestionEasy = function (q) {
+            $("#game-page").removeClass('hidden');
+            var queryURL = "https://opentdb.com/api.php?amount=50&category=11&difficulty=easy&type=multiple";
+            $.ajax(queryURL).then(function (response) {
+                getQ(response);
+            });
+        };
+
+        var pullQuestionMedium = function (q) {
+            var queryURL = "https://opentdb.com/api.php?amount=50&category=11&difficulty=medium&type=multiple";
+            $.ajax(queryURL).then(function (response) {
+                getQ(response);
+            });
+        };
+
+        var pullQuestionHard = function (q) {
+            var queryURL = "https://opentdb.com/api.php?amount=50&category=11&difficulty=hard&type=multiple";
+            $.ajax(queryURL).then(function (response) {
+                getQ(response);
+            });
+        };
+
+        statusBar = function () {
+            $('.correctNumElem').html('<h2> Correct: <br>' + correctNum);
+            $('.incorrectNumElem').html('<h2> Incorrect: <br>' + incorrectNum);
+            $('.passNumElem').html('<h2> Passes remaining: <br>' + passNum);
+        }
+
+
+        hideScenes = function () {
+            $("#start-page").addClass('hidden');
+            $("#status-page").addClass('hidden');
+            $("#game-page").addClass('hidden');
+            $("#results-page").addClass('hidden');
+            $("#prep-bar").addClass('hidden');
+            $("#bottom-bar").addClass('hidden');
+        }
+
+        gameRun = function () {
+            $("#start-page").removeClass('hidden');
+
+            $("#dif-easy").on("click", function () {
+                hideScenes();
+                $("#status-page").removeClass('hidden');
+                prepforTrivia();
+                // pullQuestionEasy();
+            });
+
+            $("#dif-medium").on("click", function () {
+                hideScenes();
+                $("#status-page").removeClass('hidden');
+                prepforTrivia();
+                // pullQuestionMedium();
+            });
+
+            $("#dif-hard").on("click", function () {
+                hideScenes();
+                $("#status-page").removeClass('hidden');
+                prepforTrivia();
+                // pullQuestionHard();
+            });
+        }
+
+        // gameRun();
+        hideScenes();
+        // pullQuestionEasy();
+        // statusBar();
+
+
+
+
+
+
+// =============================this will be the prep timer
+// $("#prepCountdown").bind("click", function () {
+//             function prepTime(duration, display) {
+//                 var timer = duration, minutes, seconds;
+//                 prepForTrivia = setInterval(function () {
+//                     minutes = parseInt(timer / 60, 10)
+//                     seconds = parseInt(timer % 60, 10);
+//                     minutes = minutes < 10 ? "0" + minutes : minutes;
+//                     seconds = seconds < 10 ? "0" + seconds : seconds;
+//                     display.text("Timer: " + minutes + ":" + seconds);
+//                     if (--timer < -1) { //so it actually shows 00:00 and not :01
+//                         display.text("Timer: 00:00");
+//                         //hideScenes();
+//                         // pullQuestion();
+//                         alert("Time's up!");
+//                         clearInterval(prepForTrivia);
+//                         // timer = duration;   //make this be at 7 again on load
+//                     }
+//                 }, 1000);
+//             }
+
+//             jQuery(function () {
+//                 var sevenSec = 7,
+//                     display = $('#time');
+//                 prepTime(sevenSec, display);
+//             });
+//         });
+
+    </script>
 </body>
 
 </html>
